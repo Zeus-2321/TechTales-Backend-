@@ -21,7 +21,7 @@ const createBlog = catchAsync(async (req, res, next) => {
 })
 
 const getAllblog = catchAsync(async (req, res, next) => {
-    const result = await blog.findAll();
+    const result = await blog.findAll({include: user});
 
     return res.json({
         status: 'success',
