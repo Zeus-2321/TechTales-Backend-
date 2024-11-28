@@ -2,10 +2,22 @@ require('dotenv').config({path: `${process.cwd()}/.env`})
 const express = require('express');
 const catchAsync = require("./utils/catchAsync");
 const appError = require("./utils/appError")
+const cors = require('cors');
 
 const app = express();
 
 app.use(express.json());
+const allowedOrigins = ['http://localhost:3000', 'https://t3chtales.netlify.app'];
+app.use(cors({
+    origin: (origin, callback) => {
+        if (allowedOrigins.includes(origin) || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true
+}));
 
 const authRouter = require('./routes/authRoute');
 const blogRouter = require('./routes/blogRoute');
