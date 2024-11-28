@@ -21,11 +21,20 @@ const createBlog = catchAsync(async (req, res, next) => {
 })
 
 const getAllblog = catchAsync(async (req, res, next) => {
+    const result = await blog.findAll();
+
+    return res.json({
+        status: 'success',
+        data: result,
+    })
+})
+
+const getAllblogOfUser = catchAsync(async (req, res, next) => {
     const userId = req.user.id;
     const result = await blog.findAll({ include:user, where: {createdBy: userId} });
 
     return res.json({
-        status: 'success',
+        status : 'success',
         data: result,
     })
 })
@@ -85,4 +94,4 @@ const deleteBlog = catchAsync(async (req, res, next) => {
     })
 });
 
-module.exports = { createBlog, getAllblog, getBlogById, updateBlog, deleteBlog }
+module.exports = { createBlog, getAllblog, getAllblogOfUser, getBlogById, updateBlog, deleteBlog }
