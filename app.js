@@ -24,6 +24,16 @@ const blogRouter = require('./routes/blogRoute');
 const userRouter = require('./routes/userRoute');
 const globalErrorHandler = require('./controller/errorController');
 
+app.use('/', catchAsync(
+    async(req, res) => {
+        try {
+            res.json({ status: "Success", message: "Welcome to TechTales' APIs" });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send("Server Error");
+        }
+    }
+));
 app.use('/api/auth', authRouter);
 app.use('/api/blogs', blogRouter);
 app.use('/api/users', userRouter);
