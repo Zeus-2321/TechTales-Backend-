@@ -24,7 +24,7 @@ const blogRouter = require('./routes/blogRoute');
 const userRouter = require('./routes/userRoute');
 const globalErrorHandler = require('./controller/errorController');
 
-app.use('/', catchAsync(
+app.use('/api/home', catchAsync(
     async(req, res) => {
         try {
             res.json({ status: "Success", message: "Welcome to TechTales' APIs" });
